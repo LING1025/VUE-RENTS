@@ -54,19 +54,19 @@ export const constantRoutes = [
       }
     ]
   },
-  {
+  /* {
     path: '/profile',
     component: Layout,
     redirect: '/profile/consumer',
     name: 'Profile',
     meta: { title: '用户管理', icon: 'user1' },
     children: [
-      /* {
+      /!* {
         path: 'consumer',
         name: 'ProfileConsumer',
         component: () => import('@/views/profile/consumer'),
         meta: { title: '修改个人信息' }
-      },*/
+      },*!/
       {
         path: 'userList',
         name: 'ProfileUserList',
@@ -149,7 +149,7 @@ export const constantRoutes = [
         meta: { title: '请休假系统' }
       }
     ]
-  },
+  },*/
   {
     path: '/oa',
     component: Layout,
@@ -194,13 +194,13 @@ export const constantRoutes = [
         name: 'TrialOpTable',
         component: () => import('@/views/trial/opTable'),
         meta: { title: '营业报表' }
-      },
-      {
+      }
+      /* {
         path: 'index',
         name: 'TrialIndex',
         component: () => import('@/views/trial/index'),
         meta: { title: '回租报价' }
-      }
+      }*/
     ]
   },
   {
