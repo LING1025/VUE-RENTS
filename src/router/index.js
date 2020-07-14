@@ -50,7 +50,7 @@ export const constantRoutes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
-        meta: { title: '首页', icon: 'dashboard' }
+        meta: { title: '首页' }
       }
     ]
   },
@@ -150,7 +150,7 @@ export const constantRoutes = [
       }
     ]
   },*/
-  {
+  /* {
     path: '/oa',
     component: Layout,
     redirect: '/oa/idManage',
@@ -181,7 +181,7 @@ export const constantRoutes = [
     name: 'Car',
     meta: { title: '车辆' },
     children: []
-  },
+  },*/
   {
     path: '/trial',
     component: Layout,
@@ -203,7 +203,7 @@ export const constantRoutes = [
       }*/
     ]
   },
-  {
+  /* {
     path: '/contract',
     component: Layout,
     redirect: '/contract/index',
@@ -330,7 +330,7 @@ export const constantRoutes = [
     name: 'BreakOff',
     meta: { title: '解约' },
     children: []
-  },
+  },*/
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
