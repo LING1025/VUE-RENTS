@@ -27,7 +27,7 @@
           min
           style="width: 100%"
         >
-          <el-table-column align="center" label="部门" prop="orgName" />
+          <el-table-column width="200px" align="center" label="部门" prop="orgName" />
           <el-table-column align="center" label="目标报件数" prop="targetPaperNum" />
           <el-table-column align="center" label="报件数" prop="proPaperNum" />
           <el-table-column align="center" label="报件达成率" prop="plv" />
@@ -54,7 +54,7 @@
           min
           style="width: 100%"
         >
-          <el-table-column align="center" label="课" prop="orgName" />
+          <el-table-column width="200px" align="center" label="课" prop="orgName" />
           <el-table-column align="center" label="目标报件数" prop="targetPaperNum" />
           <el-table-column align="center" label="报件数" prop="proPaperNum" />
           <el-table-column align="center" label="报件达成率" prop="plv" />
@@ -81,7 +81,7 @@
           min
           style="width: 100%"
         >
-          <el-table-column align="center" label="业代" prop="fname" />
+          <el-table-column width="200px" align="center" label="业代" prop="fname" />
           <el-table-column align="center" label="目标报件数" prop="targetPaperNum" />
           <el-table-column align="center" label="报件数" prop="proPaperNum" />
           <el-table-column align="center" label="报件达成率" prop="plv" />
@@ -196,6 +196,9 @@ export default {
       })
     },
     handleFilter() {
+      // 点击查询按钮，课和业代的表就会消失
+      this.listClick = null
+      this.listClickNext = null
       this.getList()
     },
     handleClick(row) {
