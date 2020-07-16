@@ -15,7 +15,6 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import htmlToPdf from '@/utils/htmlToPdf'
-// import ECharts from 'echarts'
 // echarts 引入
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts

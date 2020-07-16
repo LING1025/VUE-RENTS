@@ -183,21 +183,14 @@ export default {
       this.modeQuery.startDate = format(dateTostring(this.modeQuery.startDate))
       this.modeQuery.endDate = format(dateTostring(this.modeQuery.endDate))
     },
-    getList() {
+    queryMonth1() {
+      // 点击查询按钮，课和业代的表就会消失
+      this.listClick = null
+      this.listClickNext = null
+      this.tabBg = ''
       // 点击查询图标名称中 部门名、课不显示
       this.orgNameTable = ''
       this.orgNameTable2 = ''
-      this.tabBg = ''
-      this.queryDouble()
-      this.modeQuery.orgUpAuto = 0
-      this.modeQuery.orgAuto = 0
-      getMode(this.modeQuery).then(response => {
-        this.list = response.data
-        this.total = response.data.total
-        this.listLoading = false
-      }).catch(() => {
-        this.listLoading = false
-      })
       getMonth(this.modeQuery).then(response => {
         this.listTrial = response.data
         this.total = response.data.total
@@ -207,15 +200,35 @@ export default {
         this.listLoading = false
       })
     },
+    getList() {
+      this.queryDouble()
+      this.modeQuery.orgUpAuto = 0
+      this.modeQuery.orgAuto = 0
+      getMode(this.modeQuery).then(response => {
+        this.list = response.data
+        this.total = response.data.total
+        this.listLoading = false
+        this.queryMonth1()
+      }).catch(() => {
+        this.listLoading = false
+      })
+    },
     handleFilter() {
-      // 点击查询按钮，课和业代的表就会消失
-      this.listClick = null
-      this.listClickNext = null
       this.getList()
     },
-    handleClick(row) {
-      this.orgNameTable2 = ''
+    queryMonth2() {
       this.listClickNext = null
+      this.orgNameTable2 = ''
+      getMonth(this.modeQuery).then(response => {
+        this.listTrial = response.data
+        this.total = response.data.total
+        this.listLoading = false
+        this.drawOne()
+      }).catch(() => {
+        this.listLoading = false
+      })
+    },
+    handleClick(row) {
       this.tabBg = row.index // 选中的行
       this.queryDouble()
       this.modeQuery.orgAuto = 0
@@ -224,14 +237,7 @@ export default {
         this.listClick = response.data
         this.total = response.data.total
         this.listLoading = false
-      }).catch(() => {
-        this.listLoading = false
-      })
-      getMonth(this.modeQuery).then(response => {
-        this.listTrial = response.data
-        this.total = response.data.total
-        this.listLoading = false
-        this.drawOne()
+        this.queryMonth2()
       }).catch(() => {
         this.listLoading = false
       })
@@ -249,6 +255,16 @@ export default {
       row.index = rowIndex
       this.tabBg2 = ''
     },
+    queryMonth3() {
+      getMonth(this.modeQuery).then(response => {
+        this.listTrial = response.data
+        this.total = response.data.total
+        this.listLoading = false
+        this.drawZero()
+      }).catch(() => {
+        this.listLoading = false
+      })
+    },
     handleClickNext(row) {
       this.tabBg2 = row.index // 选中的行
       this.queryDouble()
@@ -258,14 +274,7 @@ export default {
         this.listClickNext = response.data
         this.total = response.data.total
         this.listLoading = false
-      }).catch(() => {
-        this.listLoading = false
-      })
-      getMonth(this.modeQuery).then(response => {
-        this.listTrial = response.data
-        this.total = response.data.total
-        this.listLoading = false
-        this.drawZero()
+        this.queryMonth3()
       }).catch(() => {
         this.listLoading = false
       })
@@ -430,7 +439,7 @@ export default {
           data: riqi,
           // x轴柱状图阴影
           axisPointer: {
-            type: 'line'
+            type: 'shadow'
           }
         },
         yAxis: {
@@ -493,7 +502,7 @@ export default {
           data: riqi,
           // x轴柱状图阴影
           axisPointer: {
-            type: 'line'
+            type: 'shadow'
           }
         },
         yAxis: {
@@ -558,7 +567,7 @@ export default {
           data: riqi,
           // x轴柱状图阴影
           axisPointer: {
-            type: 'line'
+            type: 'shadow'
           }
         },
         yAxis: {
@@ -621,7 +630,7 @@ export default {
           data: riqi,
           // x轴柱状图阴影
           axisPointer: {
-            type: 'line'
+            type: 'shadow'
           }
         },
         yAxis: {
