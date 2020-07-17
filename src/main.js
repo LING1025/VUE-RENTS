@@ -15,8 +15,13 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import htmlToPdf from '@/utils/htmlToPdf'
+import BabelPolyfill from 'babel-polyfill'
+import promise from 'es6-promise'
 // echarts 引入
 import echarts from 'echarts'
+
+Vue.use(BabelPolyfill)
+promise.polyfill()
 Vue.prototype.$echarts = echarts
 /**
  * If you don't want to use mock-server
