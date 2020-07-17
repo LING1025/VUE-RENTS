@@ -37,6 +37,16 @@ export function getCurrentMonthFirst(currentMonthFirst) {
   // eslint-disable-next-line no-return-assign
   return currentMonthFirst = date.getFullYear() + '-' + month + '-' + day
 }
+/** 获取指定月份的最后一天 */
+export function getMonthLastDays(monthLastDays) {
+  const date = new Date(monthLastDays)
+  const year = date.getFullYear()
+  let month = date.getMonth() + 1
+  month = month < 10 ? '0' + month : month
+  const day = new Date(year, month, 0)
+  // eslint-disable-next-line no-return-assign
+  return monthLastDays = year + '-' + month + '-' + day.getDate()
+}
 
 /** 获取当前月的最后一天 **/
 export function getCurrentMonthLast(currentMonthLast) {
