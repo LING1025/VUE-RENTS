@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import 'babel-polyfill'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
@@ -15,12 +16,10 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import htmlToPdf from '@/utils/htmlToPdf'
-import BabelPolyfill from 'babel-polyfill'
 import promise from 'es6-promise'
 // echarts 引入
 import echarts from 'echarts'
 
-Vue.use(BabelPolyfill)
 promise.polyfill()
 Vue.prototype.$echarts = echarts
 /**
