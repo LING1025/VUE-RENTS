@@ -155,7 +155,7 @@ export default {
           sums[index] = '合计' // 第一列显示 合计
           return
         }
-        const values = data.map(item => Number(item[columns.property]))
+        const values = (data || []).map(item => Number(item[columns.property]))
         if (!values.every(value => isNaN(value))) {
           sums[index] = values.reduce((prev, curr) => {
             const value = Number(curr)
