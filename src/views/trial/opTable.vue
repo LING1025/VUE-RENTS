@@ -106,7 +106,7 @@
 import { mapGetters } from 'vuex'
 import { getUserAuto } from '../../utils/auth'
 import { dateTostring, format } from '../../utils/dateSplice' // 日期的查询
-import { currentDate, getCurrentMonthFirst, getMonthLastDays } from '../../utils/dateSplice' // 获取当天日期,获取当前月的第一天,获取指定月份的最后一天
+import { currentDate, getCurrentMonthFirst, getMonthLastDays, getCurrentMonth } from '../../utils/dateSplice' // 获取当天日期,获取当前月的第一天,获取指定月份的最后一天
 import { getMode, getMonth } from '../../api/reportTable/formOne'
 // import typeOption from '../../variable/types'
 
@@ -150,13 +150,23 @@ export default {
     // 监听日期输入框
     onChangeInput() {
       this.modeQuery.startDate = format(dateTostring(this.modeQuery.startDate))
-      if (this.modeQuery.startDate !== getCurrentMonthFirst()) {
+      // console.log(format(dateTostring(this.modeQuery.startDate)))
+      // console.log(format(dateTostring(getCurrentMonthFirst())))
+      // console.log(getCurrentMonthFirst())
+      if (this.modeQuery.startDate.slice(0, 7) !== getCurrentMonth()) {
         this.modeQuery.endDate = getMonthLastDays(this.modeQuery.startDate)
+        // console.log(this.modeQuery.startDate)
+        // console.log(this.modeQuery.endDate)
+      }
+      if (this.modeQuery.startDate.slice(0, 7) === getCurrentMonth()) {
+        this.modeQuery.endDate = currentDate()
       }
     },
     queryDouble() {
       this.modeQuery.startDate = format(dateTostring(this.modeQuery.startDate))
       this.modeQuery.endDate = format(dateTostring(this.modeQuery.endDate))
+      // console.log(this.modeQuery.startDate)
+      // console.log(this.modeQuery.endDate)
     },
     queryMonth1() {
       // 点击查询按钮，课和业代的表就会消失
