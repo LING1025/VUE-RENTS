@@ -4,10 +4,10 @@
       <el-header>
         <el-row>
           <el-col :span="4">
-            <el-date-picker v-model="modeQuery.startDate" type="date" placeholder="请选择开始日期" style="width: 100%" @change="onChangeInput" @keyup.enter.native="handleFilter" /><!--使用format指定输入框的格式；使用value-format指定绑定值的格式。-->
+            <el-date-picker v-model="modeQuery.startDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择开始日期" style="width: 100%" @change="onChangeInput" @keyup.enter.native="handleFilter" /><!--使用format指定输入框的格式；使用value-format指定绑定值的格式。-->
           </el-col>
           <el-col :span="4">
-            <el-date-picker v-model="modeQuery.endDate" type="date" placeholder="请选择结束日期" style="width: 100%" @keyup.enter.native="handleFilter" /><!--使用format指定输入框的格式；使用value-format指定绑定值的格式。-->
+            <el-date-picker v-model="modeQuery.endDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择结束日期" style="width: 100%" @keyup.enter.native="handleFilter" /><!--使用format指定输入框的格式；使用value-format指定绑定值的格式。-->
           </el-col>
           <el-col :span="6">
             <el-button type="primary" plain icon="el-icon-search" @click="handleFilter">查询</el-button>
@@ -123,12 +123,12 @@ export default {
       tabBg2: '',
       orgNameTable: '', // 第一个表格的部门名称
       orgNameTable2: '',
+      timer: '', // 定时器
       total: 0,
       list: null,
       listClick: null,
       listClickNext: null,
-      listTrial: null,
-      listLastMonth: null,
+      listTrial: '',
       listLoading: true,
       flag: false,
       flag2: false,
@@ -147,40 +147,9 @@ export default {
     this.getList()
   },
   methods: {
-    getSummaries(param) {
-      const { columns, data } = param
-      const sums = []
-      columns.forEach((columns, index) => {
-        if (index === 0) {
-          sums[index] = '合计' // 第一列显示 合计
-          return
-        }
-        const values = (data || []).map(item => Number(item[columns.property]))
-        if (!values.every(value => isNaN(value))) {
-          sums[index] = values.reduce((prev, curr) => {
-            const value = Number(curr)
-            if (!isNaN(value)) {
-              return prev + curr
-            } else {
-              return prev
-            }
-          }, 0)
-        } else {
-          if (index === 3) {
-            sums[index] = ((sums[2] / sums[1]) * 100).toFixed(0) + '%'
-          }
-          if (index === 6) {
-            sums[index] = ((sums[5] / sums[4]) * 100).toFixed(0) + '%'
-          }
-          if (index === 9) {
-            sums[index] = ((sums[8] / sums[7]) * 100).toFixed(0) + '%'
-          }
-        }
-      })
-      return sums // 最后返回合计行的数据
-    },
     // 监听日期输入框
     onChangeInput() {
+      this.modeQuery.startDate = format(dateTostring(this.modeQuery.startDate))
       if (this.modeQuery.startDate !== getCurrentMonthFirst()) {
         this.modeQuery.endDate = getMonthLastDays(this.modeQuery.startDate)
       }
@@ -221,6 +190,42 @@ export default {
     },
     handleFilter() {
       this.getList()
+    },
+    getSummaries(param) {
+      const { columns, data } = param
+      const sums = []
+      columns.forEach((columns, index) => {
+        if (index === 0) {
+          sums[index] = '合计' // 第一列显示 合计
+          return
+        }
+        const values = (data || []).map(item => Number(item[columns.property]))
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = Number(curr)
+            if (!isNaN(value)) {
+              return prev + curr
+            } else {
+              return prev
+            }
+          }, 0)
+        } else {
+          if (index === 3) {
+            sums[index] = ((sums[2] / sums[1]) * 100).toFixed(0) + '%'
+          }
+          if (index === 6) {
+            sums[index] = ((sums[5] / sums[4]) * 100).toFixed(0) + '%'
+          }
+          if (index === 9) {
+            sums[index] = ((sums[8] / sums[7]) * 100).toFixed(0) + '%'
+          }
+        }
+        // setTimeout(function() {
+        //   console.log('定时器打印')
+        // }, 1000) // 定时器延迟1秒
+      })
+      return sums // 最后返回合计行的数据
+      // clearTimeout(this.timer) // 监听日期输入框
     },
     queryMonth2() {
       this.listClickNext = null
@@ -692,6 +697,10 @@ export default {
       this.draws()
     }
   }
+  // mounted() {
+  //   this.timer = setTimeout(this.getSummaries, 5000)
+  //   console.log('这里这里这里这里这里这里这里这里这里这里')
+  // }
 }
 </script>
 
